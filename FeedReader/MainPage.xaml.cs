@@ -46,7 +46,7 @@ namespace FeedReader
 
         private ObservableCollection<FeedItem> _feedItems;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ReloadButton_Click(object sender, RoutedEventArgs e)
         {
             RefreshFeeds();
         }
@@ -74,12 +74,6 @@ namespace FeedReader
                 feeds.Add(FeedTextBox.Text);
                 FeedTextBox.Text = string.Empty;
             }
-        }
-
-        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            TextBlock textBlock = sender as TextBlock;
-            textBlock.Text = (string)textBlock.Resources["url"];
         }
     }
 }

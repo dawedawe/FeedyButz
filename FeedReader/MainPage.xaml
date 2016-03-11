@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Grid.Row="0" HorizontalAlignment="Center" Name="ReloadButton" Content="Reload" Click="Button_Click" Margin="10"/>
+            <Button Grid.Row="0" HorizontalAlignment="Center" Name="ReloadButton" Content="Reload" Click="ReloadButton_Click" Margin="10"/>
             <TextBox Name="FeedTextBox" Width="150" Margin="10"></TextBox>
             <Button Name="AddFeedButton" Content="+" HorizontalAlignment="Right"  Margin="10" Click="AddFeedButton_Click" />
             <ProgressRing Name="ReloadProgressRing" IsActive="False" />
