@@ -13,12 +13,14 @@ namespace FeedReader.Model
     {
         public string Title { get; set; }
         public string Url { get; set; }
+        public string Description { get; set; }
     }
 
     public class FeedItemManager
     {
-        public static async void GetFeedUrls(string feedUrl, ObservableCollection<FeedItem> feedItems)
+        public static async Task<int> GetFeedUrls(string feedUrl, ObservableCollection<FeedItem> feedItems)
         {
+            int addedItems = 0;
             Windows.Data.Xml.Dom.XmlDocument xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
             HttpWebRequest request = HttpWebRequest.CreateHttp(feedUrl);
 
@@ -28,6 +30,7 @@ namespace FeedReader.Model
             xmlDoc.LoadXml(r.ReadToEnd());
 
             Windows.Data.Xml.Dom.XmlNodeList rssNodes = xmlDoc.SelectNodes("rss/channel/item");
+            feedItems.Add(new FeedItem() { Title = feedUrl, Url = feedUrl });
 
             // Iterate through the items in the RSS file
             foreach (Windows.Data.Xml.Dom.IXmlNode rssNode in rssNodes)
@@ -41,8 +44,11 @@ namespace FeedReader.Model
                 rssSubNode = rssNode.SelectSingleNode("description");
                 string description = rssSubNode != null ? rssSubNode.InnerText : "";
 
-                feedItems.Add(new FeedItem() { Title = title, Url = link });
+                feedItems.Add(new FeedItem() { Title = title, Url = link, Description = description });
+                addedItems++;
             }
+
+            return addedItems;
         }
     }
 }

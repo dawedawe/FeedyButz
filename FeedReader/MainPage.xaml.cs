@@ -34,10 +34,17 @@ namespace FeedReader
         public MainPage()
         {
             this.InitializeComponent();
-            FeedItems = new ObservableCollection<FeedItem>();
+            _feedItems = new ObservableCollection<FeedItem>();
+            List<string> feeds = new List<string>()
+            {
+                "http://heise.de.feedsportal.com/c/35207/f/653902/index.rss",
+                "http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0",
+                "http://www.faz.net/rss/aktuell/",
+            };
+            Application.Current.Resources["Feeds"] = feeds;
         }
 
-        private ObservableCollection<FeedItem> FeedItems;
+        private ObservableCollection<FeedItem> _feedItems;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -49,19 +56,30 @@ namespace FeedReader
             RefreshFeeds();
         }
 
-        private void RefreshFeeds()
+        private async void RefreshFeeds()
         {
-            List<string> feeds = new List<string> {
-                "http://heise.de.feedsportal.com/c/35207/f/653902/index.rss",
-                "http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0",
-                "http://www.faz.net/rss/aktuell/",
-            };
-
-            FeedItems.Clear();
+            ReloadProgressRing.IsActive = true;
+            _feedItems.Clear();
+            List<string> feeds = (List<string>)Application.Current.Resources["Feeds"];
             foreach (string feed in feeds)
+                await FeedItemManager.GetFeedUrls(feed, _feedItems);
+            ReloadProgressRing.IsActive = false;
+        }
+
+        private void AddFeedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (FeedTextBox.Text.Length > 0)
             {
-                Model.FeedItemManager.GetFeedUrls(feed, FeedItems);
+                List<string> feeds = (List<string>)Application.Current.Resources["Feeds"];
+                feeds.Add(FeedTextBox.Text);
+                FeedTextBox.Text = string.Empty;
             }
+        }
+
+        private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            TextBlock textBlock = sender as TextBlock;
+            textBlock.Text = (string)textBlock.Resources["url"];
         }
     }
 }
