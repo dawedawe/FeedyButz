@@ -13,7 +13,6 @@ namespace FeedReader.Model
     {
         public string Title { get; set; }
         public string Url { get; set; }
-        public string Description { get; set; }
     }
 
     public class FeedItemManager
@@ -41,10 +40,7 @@ namespace FeedReader.Model
                 rssSubNode = rssNode.SelectSingleNode("link");
                 string link = rssSubNode != null ? rssSubNode.InnerText : "";
 
-                rssSubNode = rssNode.SelectSingleNode("description");
-                string description = rssSubNode != null ? rssSubNode.InnerText : "";
-
-                feedItems.Add(new FeedItem() { Title = title, Url = link, Description = description });
+                feedItems.Add(new FeedItem() { Title = title, Url = link });
                 addedItems++;
             }
 

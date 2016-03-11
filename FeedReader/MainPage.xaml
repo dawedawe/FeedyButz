@@ -27,7 +27,9 @@
                  ScrollViewer.VerticalScrollMode="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="data:FeedItem">
-                    <HyperlinkButton Width="auto" Content="{x:Bind Title}" NavigateUri="{x:Bind Url}"  />
+                    <HyperlinkButton Width="auto" NavigateUri="{x:Bind Url}">
+                        <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" />
+                    </HyperlinkButton>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
