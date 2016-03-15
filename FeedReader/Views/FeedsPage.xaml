@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="FeedReader.Views.FeedsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FeedReader.Views"
+    xmlns:data="using:FeedReader.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Name="FeedsGrid" Height="auto" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ProgressRing Grid.Row="0" Name="ReloadProgressRing"/>
+        <ListBox Grid.Row="1" Name="myListBox" ItemsSource="{x:Bind _feedItems}" Width="auto"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 ScrollViewer.VerticalScrollMode="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="data:FeedItem">
+                    <HyperlinkButton Width="auto" NavigateUri="{x:Bind Url}">
+                        <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" />
+                    </HyperlinkButton>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using FeedReader.Model;
+using FeedReader.Views;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -34,36 +35,11 @@ namespace FeedReader
         public MainPage()
         {
             this.InitializeComponent();
-            _feedItems = new ObservableCollection<FeedItem>();
-            List<string> feeds = new List<string>()
-            {
-                "http://heise.de.feedsportal.com/c/35207/f/653902/index.rss",
-                "http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0",
-                "http://www.faz.net/rss/aktuell/",
-            };
-            Application.Current.Resources["Feeds"] = feeds;
         }
-
-        private ObservableCollection<FeedItem> _feedItems;
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)
         {
-            RefreshFeeds();
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            RefreshFeeds();
-        }
-
-        private async void RefreshFeeds()
-        {
-            ReloadProgressRing.IsActive = true;
-            _feedItems.Clear();
-            List<string> feeds = (List<string>)Application.Current.Resources["Feeds"];
-            foreach (string feed in feeds)
-                await FeedItemManager.GetFeedUrls(feed, _feedItems);
-            ReloadProgressRing.IsActive = false;
+            MyFrame.Navigate(typeof(FeedsPage));
         }
 
         private void AddFeedButton_Click(object sender, RoutedEventArgs e)
@@ -74,6 +50,11 @@ namespace FeedReader
                 feeds.Add(FeedTextBox.Text);
                 FeedTextBox.Text = string.Empty;
             }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            MyFrame.Navigate(typeof(FeedsPage));
         }
     }
 }

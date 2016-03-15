@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FeedReader"
-    xmlns:data="using:FeedReader.Model"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -16,22 +15,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Grid.Row="0" HorizontalAlignment="Center" Name="ReloadButton" Content="Reload" Click="ReloadButton_Click" Margin="10"/>
+            <Button Name="ReloadButton" HorizontalAlignment="Center" Content="Reload" Click="ReloadButton_Click" Margin="10"/>
             <TextBox Name="FeedTextBox" Width="150" Margin="10"></TextBox>
             <Button Name="AddFeedButton" Content="+" HorizontalAlignment="Right"  Margin="10" Click="AddFeedButton_Click" />
-            <ProgressRing Name="ReloadProgressRing" IsActive="False" />
         </StackPanel>
 
-        <ListBox Grid.Row="1" Name="myListBox" ItemsSource="{x:Bind _feedItems}" Width="auto"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 ScrollViewer.VerticalScrollMode="Auto">
-            <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="data:FeedItem">
-                    <HyperlinkButton Width="auto" NavigateUri="{x:Bind Url}">
-                        <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" />
-                    </HyperlinkButton>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Frame Name="MyFrame" Grid.Row="1"></Frame>
+        
     </Grid>
 </Page>
