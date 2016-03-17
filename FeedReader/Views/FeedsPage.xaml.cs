@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using FeedReader.Model;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,13 +29,6 @@ namespace FeedReader.Views
         {
             this.InitializeComponent();
             _feedItems = new ObservableCollection<FeedItem>();
-            List<string> feeds = new List<string>()
-            {
-                "http://heise.de.feedsportal.com/c/35207/f/653902/index.rss",
-                "http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0",
-                "http://www.faz.net/rss/aktuell/",
-            };
-            Application.Current.Resources["Feeds"] = feeds;
         }
 
         private ObservableCollection<FeedItem> _feedItems;
@@ -49,9 +43,20 @@ namespace FeedReader.Views
             FeedsGrid.RowDefinitions[0].Height = GridLength.Auto;
             ReloadProgressRing.IsActive = true;
             _feedItems.Clear();
-            List<string> feeds = (List<string>)Application.Current.Resources["Feeds"];
-            foreach (string feed in feeds)
-                await FeedItemManager.GetFeedUrls(feed, _feedItems);
+
+            List<Feed> feeds = (List<Feed>)Application.Current.Resources["Feeds"];
+            foreach (Feed feed in feeds)
+            {
+                try
+                {
+                    await FeedItemManager.GetFeedUrls(feed.Url, _feedItems);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("RefreshFeeds(): " + ex.Message);
+                }
+            }
+
             ReloadProgressRing.IsActive = false;
             FeedsGrid.RowDefinitions[0].Height = new GridLength(0);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,16 @@ using System.Threading.Tasks;
 
 namespace FeedReader.Model
 {
+    public class Feed
+    {
+        public Feed(string url)
+        {
+            Url = url;
+        }
+
+        public string Url { get; set; }
+    }
+
     public class FeedItem
     {
         public string Title { get; set; }

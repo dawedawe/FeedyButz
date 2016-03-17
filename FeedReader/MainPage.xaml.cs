@@ -35,6 +35,13 @@ namespace FeedReader
         public MainPage()
         {
             this.InitializeComponent();
+            List<Feed> feeds = new List<Feed>()
+            {
+                new Feed("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss"),
+                new Feed("http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0"),
+                new Feed("http://www.faz.net/rss/aktuell/"),
+            };
+            Application.Current.Resources["Feeds"] = feeds;
         }
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)
@@ -42,19 +49,14 @@ namespace FeedReader
             MyFrame.Navigate(typeof(FeedsPage));
         }
 
-        private void AddFeedButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (FeedTextBox.Text.Length > 0)
-            {
-                List<string> feeds = (List<string>)Application.Current.Resources["Feeds"];
-                feeds.Add(FeedTextBox.Text);
-                FeedTextBox.Text = string.Empty;
-            }
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             MyFrame.Navigate(typeof(FeedsPage));
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            MyFrame.Navigate(typeof(SettingsPage));
         }
     }
 }
