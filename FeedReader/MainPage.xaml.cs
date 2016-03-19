@@ -35,13 +35,8 @@ namespace FeedReader
         public MainPage()
         {
             this.InitializeComponent();
-            List<Feed> feeds = new List<Feed>()
-            {
-                new Feed("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss"),
-                new Feed("http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0"),
-                new Feed("http://www.faz.net/rss/aktuell/"),
-            };
-            Application.Current.Resources["Feeds"] = feeds;
+
+            Application.Current.Resources["Feeds"] = FeedItemManager.ReadFeedSettings();
         }
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)

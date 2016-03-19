@@ -26,13 +26,12 @@ namespace FeedReader.Views
     {
         public SettingsPage()
         {
-            _feeds = new ObservableCollection<Feed>();
             this.InitializeComponent();
-            List<Feed> feeds = (List<Feed>)Application.Current.Resources["Feeds"];
+
+            _feeds = new ObservableCollection<Feed>();
+            IList<Feed> feeds = (IList<Feed>)Application.Current.Resources["Feeds"];
             foreach (var feed in feeds)
-            {
                 _feeds.Add(feed);
-            }
         }
 
         private ObservableCollection<Feed> _feeds;
@@ -43,7 +42,6 @@ namespace FeedReader.Views
             {
                 _feeds.Add(new Feed(FeedTextBox.Text));
                 FeedTextBox.Text = string.Empty;
-
                 Application.Current.Resources["Feeds"] = _feeds.ToList<Feed>();
             }
         }

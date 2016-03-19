@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
+using Windows.Storage;
 
 namespace FeedReader.Model
 {
@@ -28,7 +30,14 @@ namespace FeedReader.Model
 
     public class FeedItemManager
     {
-        public static async Task<int> GetFeedUrls(string feedUrl, ObservableCollection<FeedItem> feedItems)
+        private static List<Feed> _defaultFeeds = new List<Feed>()
+            {
+                new Feed("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss"),
+                new Feed("http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0"),
+                new Feed("http://www.faz.net/rss/aktuell/"),
+            };
+
+        public static async Task<int> RequestFeed(string feedUrl, ObservableCollection<FeedItem> feedItems)
         {
             int addedItems = 0;
             Windows.Data.Xml.Dom.XmlDocument xmlDoc = new Windows.Data.Xml.Dom.XmlDocument();
@@ -57,5 +66,36 @@ namespace FeedReader.Model
 
             return addedItems;
         }
+
+        public static void StoreFeedSettings(IList<Feed> feeds)
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            for (int i = 0; i < feeds.Count(); i++)
+                localSettings.Values["feed" + i] = feeds[i].Url;
+        }
+
+        public static IList<Feed> ReadFeedSettings()
+        {
+            List<Feed> feeds = new List<Feed>();
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            int i = 0;
+            while (true)
+            {
+                var u = localSettings.Values["feed" + i];
+                if (u == null)
+                    break;
+                else
+                    feeds.Add(new Feed((string)u));
+                i++;
+            }
+
+            if (feeds.Count() == 0)
+                feeds = _defaultFeeds;
+
+            return feeds;
+        }
+
     }
 }

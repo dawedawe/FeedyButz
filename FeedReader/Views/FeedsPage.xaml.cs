@@ -44,12 +44,12 @@ namespace FeedReader.Views
             ReloadProgressRing.IsActive = true;
             _feedItems.Clear();
 
-            List<Feed> feeds = (List<Feed>)Application.Current.Resources["Feeds"];
+            IList<Feed> feeds = (IList<Feed>)Application.Current.Resources["Feeds"];
             foreach (Feed feed in feeds)
             {
                 try
                 {
-                    await FeedItemManager.GetFeedUrls(feed.Url, _feedItems);
+                    await FeedItemManager.RequestFeed(feed.Url, _feedItems);
                 }
                 catch (Exception ex)
                 {
