@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using FeedReader.Model;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,6 +45,14 @@ namespace FeedReader.Views
                 FeedTextBox.Text = string.Empty;
                 Application.Current.Resources["Feeds"] = _feeds.ToList<Feed>();
             }
+        }
+
+        private void RemoveFeedButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (feedsListBox.SelectedIndex >= 0)
+                _feeds.RemoveAt(feedsListBox.SelectedIndex);
+
+            Application.Current.Resources["Feeds"] = _feeds.ToList();
         }
     }
 }

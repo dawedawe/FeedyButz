@@ -71,6 +71,7 @@ namespace FeedReader.Model
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
+            localSettings.Values.Clear();
             for (int i = 0; i < feeds.Count(); i++)
                 localSettings.Values["feed" + i] = feeds[i].Url;
         }
