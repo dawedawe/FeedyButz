@@ -14,11 +14,19 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal">
-            <TextBox Name="FeedTextBox" Width="200" Margin="10"></TextBox>
-            <Button Name="AddFeedButton" Content="+" Margin="10" Click="AddFeedButton_Click" />
-            <Button Name="RemoveFeedButton" Content="-" Margin="10" Click="RemoveFeedButton_Click" />
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Name="FeedTextBox" Margin="10"></TextBox>
+            <Button Grid.Column="1" Name="AddFeedButton" Content="+" Margin="10" Click="AddFeedButton_Click"
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <Button Grid.Column="2" Name="RemoveFeedButton" Content="-" Margin="10" Click="RemoveFeedButton_Click"
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        </Grid>
 
         <ListBox Grid.Row="1" Name="feedsListBox" ItemsSource="{x:Bind _feeds}" Width="auto"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
