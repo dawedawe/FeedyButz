@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Model\FeedItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="Views\FeedsPage.xaml.cs">
       <DependentUpon>FeedsPage.xaml</DependentUpon>
     </Compile>

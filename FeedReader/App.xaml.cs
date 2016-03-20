@@ -107,7 +107,7 @@ namespace FeedReader
             
             //TODO: Save application state and stop any background activity
             IList<Model.Feed> currentFeeds = (IList<Model.Feed>)Application.Current.Resources["Feeds"];
-            Model.FeedItemManager.StoreFeedSettings(currentFeeds);
+            SettingsManager.StoreFeedSettings(currentFeeds);
 
             deferral.Complete();
         }

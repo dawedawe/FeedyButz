@@ -44,7 +44,7 @@ namespace FeedReader.Views
             ReloadProgressRing.IsActive = true;
             _feedItems.Clear();
 
-            IList<Feed> feeds = (IList<Feed>)Application.Current.Resources["Feeds"];
+            IList<Feed> feeds = SettingsManager.GetCurrentFeeds();
             foreach (Feed feed in feeds)
             {
                 try

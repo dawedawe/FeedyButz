@@ -35,8 +35,7 @@ namespace FeedReader
         public MainPage()
         {
             this.InitializeComponent();
-
-            Application.Current.Resources["Feeds"] = FeedItemManager.ReadFeedSettings();
+            SettingsManager.RestoreSettings();
         }
 
         private void ReloadButton_Click(object sender, RoutedEventArgs e)

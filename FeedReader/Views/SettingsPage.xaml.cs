@@ -30,7 +30,7 @@ namespace FeedReader.Views
             this.InitializeComponent();
 
             _feeds = new ObservableCollection<Feed>();
-            IList<Feed> feeds = (IList<Feed>)Application.Current.Resources["Feeds"];
+            IList<Feed> feeds = SettingsManager.GetCurrentFeeds();
             foreach (var feed in feeds)
                 _feeds.Add(feed);
         }
@@ -43,7 +43,7 @@ namespace FeedReader.Views
             {
                 _feeds.Add(new Feed(FeedTextBox.Text));
                 FeedTextBox.Text = string.Empty;
-                Application.Current.Resources["Feeds"] = _feeds.ToList<Feed>();
+                SettingsManager.SetCurrentFeeds(_feeds.ToList<Feed>());
             }
         }
 
