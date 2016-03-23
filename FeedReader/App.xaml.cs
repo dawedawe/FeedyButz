@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Net;
 
-namespace FeedReader
+namespace FeedyButz
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

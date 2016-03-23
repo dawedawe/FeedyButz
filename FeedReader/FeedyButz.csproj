@@ -7,8 +7,8 @@
     <ProjectGuid>{80AE39C7-5662-4860-A489-08715D6B034A}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FeedReader</RootNamespace>
-    <AssemblyName>FeedReader</AssemblyName>
+    <RootNamespace>FeedyButz</RootNamespace>
+    <AssemblyName>FeedyButz</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

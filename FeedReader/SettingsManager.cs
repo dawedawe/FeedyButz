@@ -1,4 +1,4 @@
-﻿using FeedReader.Model;
+﻿using FeedyButz.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace FeedReader
+namespace FeedyButz
 {
     class SettingsManager
     {

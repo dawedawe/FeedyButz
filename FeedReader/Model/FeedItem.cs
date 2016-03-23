@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 
-namespace FeedReader.Model
+namespace FeedyButz.Model
 {
     public class Feed
     {
