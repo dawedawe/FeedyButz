@@ -41,18 +41,45 @@ namespace FeedyButz.Model
             StreamReader r = new StreamReader(s);
             xmlDoc.LoadXml(r.ReadToEnd());
 
-            Windows.Data.Xml.Dom.XmlNodeList rssNodes = xmlDoc.SelectNodes("rss/channel/item");
             feedItems.Add(new FeedItem() { Title = feedUrl, Url = feedUrl });
 
-            // Iterate through the items in the RSS file
+            addedItems = ParseRSS(xmlDoc, feedItems);
+            if (addedItems == 0)
+                addedItems = ParseAtom(xmlDoc, feedItems);
+
+            return addedItems;
+        }
+
+        private static int ParseAtom(Windows.Data.Xml.Dom.XmlDocument xmlDoc, ObservableCollection<FeedItem> feedItems)
+        {
+            int addedItems = 0;
+            string atomNS = "xmlns:atom='http://www.w3.org/2005/Atom'";
+            Windows.Data.Xml.Dom.XmlNodeList atomNodes = xmlDoc.SelectNodesNS("atom:feed/atom:entry", atomNS);
+
+            foreach (Windows.Data.Xml.Dom.IXmlNode atomNode in atomNodes)
+            {
+                Windows.Data.Xml.Dom.IXmlNode atomSubNode = atomNode.SelectSingleNodeNS("atom:title", atomNS);
+                string title = atomSubNode != null ? atomSubNode.InnerText : "";
+                atomSubNode = atomNode.SelectSingleNodeNS("atom:link", atomNS);
+                string link = atomSubNode.Attributes.Where(a => a.NodeName == "href").First().InnerText;
+                feedItems.Add(new FeedItem() { Title = title, Url = link });
+                addedItems++;
+            }
+
+            return addedItems;
+        }
+
+        private static int ParseRSS(Windows.Data.Xml.Dom.XmlDocument xmlDoc, ObservableCollection<FeedItem> feedItems)
+        {
+            int addedItems = 0;
+            Windows.Data.Xml.Dom.XmlNodeList rssNodes = xmlDoc.SelectNodes("rss/channel/item");
+
             foreach (Windows.Data.Xml.Dom.IXmlNode rssNode in rssNodes)
             {
                 Windows.Data.Xml.Dom.IXmlNode rssSubNode = rssNode.SelectSingleNode("title");
                 string title = rssSubNode != null ? rssSubNode.InnerText : "";
-
                 rssSubNode = rssNode.SelectSingleNode("link");
                 string link = rssSubNode != null ? rssSubNode.InnerText : "";
-
                 feedItems.Add(new FeedItem() { Title = title, Url = link });
                 addedItems++;
             }
