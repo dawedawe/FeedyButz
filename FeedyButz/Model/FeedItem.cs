@@ -24,6 +24,12 @@ namespace FeedyButz.Model
 
     public class FeedItem
     {
+        public FeedItem(string title, string url)
+        {
+            Title = title;
+            Url = url;
+        }
+
         public string Title { get; set; }
         public string Url { get; set; }
     }
@@ -41,7 +47,7 @@ namespace FeedyButz.Model
             StreamReader r = new StreamReader(s);
             xmlDoc.LoadXml(r.ReadToEnd());
 
-            feedItems.Add(new FeedItem() { Title = feedUrl, Url = feedUrl });
+            feedItems.Add(new FeedItem(feedUrl, feedUrl));
 
             addedItems = ParseRSS(xmlDoc, feedItems);
             if (addedItems == 0)
@@ -62,7 +68,7 @@ namespace FeedyButz.Model
                 string title = atomSubNode != null ? atomSubNode.InnerText : "";
                 atomSubNode = atomNode.SelectSingleNodeNS("atom:link", atomNS);
                 string link = atomSubNode.Attributes.Where(a => a.NodeName == "href").First().InnerText;
-                feedItems.Add(new FeedItem() { Title = title, Url = link });
+                feedItems.Add(new FeedItem(title, link));
                 addedItems++;
             }
 
@@ -80,7 +86,7 @@ namespace FeedyButz.Model
                 string title = rssSubNode != null ? rssSubNode.InnerText : "";
                 rssSubNode = rssNode.SelectSingleNode("link");
                 string link = rssSubNode != null ? rssSubNode.InnerText : "";
-                feedItems.Add(new FeedItem() { Title = title, Url = link });
+                feedItems.Add(new FeedItem(title, link));
                 addedItems++;
             }
 
