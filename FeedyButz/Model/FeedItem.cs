@@ -47,7 +47,8 @@ namespace FeedyButz.Model
             StreamReader r = new StreamReader(s);
             xmlDoc.LoadXml(r.ReadToEnd());
 
-            feedItems.Add(new FeedItem(feedUrl, feedUrl));
+            Uri uri = new Uri(feedUrl);
+            feedItems.Add(new FeedItem(uri.Host, feedUrl));
 
             addedItems = ParseRSS(xmlDoc, feedItems);
             if (addedItems == 0)
