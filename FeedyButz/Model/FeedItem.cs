@@ -30,8 +30,16 @@ namespace FeedyButz.Model
             Url = url;
         }
 
+        public FeedItem(string title, string url, string description)
+        {
+            Title = title;
+            Url = url;
+            Description = description;
+        }
+
         public string Title { get; set; }
         public string Url { get; set; }
+        public string Description { get; set; } = "";
     }
 
     public class FeedItemManager
@@ -67,9 +75,14 @@ namespace FeedyButz.Model
             {
                 Windows.Data.Xml.Dom.IXmlNode atomSubNode = atomNode.SelectSingleNodeNS("atom:title", atomNS);
                 string title = atomSubNode != null ? atomSubNode.InnerText : "";
+
                 atomSubNode = atomNode.SelectSingleNodeNS("atom:link", atomNS);
                 string link = atomSubNode.Attributes.Where(a => a.NodeName == "href").First().InnerText;
-                feedItems.Add(new FeedItem(title, link));
+
+                atomSubNode = atomNode.SelectSingleNodeNS("atom:summary", atomNS);
+                string summary = atomSubNode != null ? atomSubNode.InnerText : "";
+
+                feedItems.Add(new FeedItem(title, link, summary));
                 addedItems++;
             }
 
@@ -85,9 +98,14 @@ namespace FeedyButz.Model
             {
                 Windows.Data.Xml.Dom.IXmlNode rssSubNode = rssNode.SelectSingleNode("title");
                 string title = rssSubNode != null ? rssSubNode.InnerText : "";
+
                 rssSubNode = rssNode.SelectSingleNode("link");
                 string link = rssSubNode != null ? rssSubNode.InnerText : "";
-                feedItems.Add(new FeedItem(title, link));
+
+                rssSubNode = rssNode.SelectSingleNode("description");
+                string description = rssSubNode != null ? rssSubNode.InnerText : "";
+
+                feedItems.Add(new FeedItem(title, link, description));
                 addedItems++;
             }
 

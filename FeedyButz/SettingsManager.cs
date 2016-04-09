@@ -14,7 +14,7 @@ namespace FeedyButz
         private static List<Feed> _defaultFeeds = new List<Feed>()
             {
                 new Feed("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss"),
-                new Feed("http://golem.de.dynamic.feedsportal.com/pf/578068/http://rss.golem.de/rss.php?feed=RSS1.0"),
+                new Feed("http://rss.golem.de/rss.php?feed=ATOM1.0"),
                 new Feed("http://www.faz.net/rss/aktuell/"),
             };
 
