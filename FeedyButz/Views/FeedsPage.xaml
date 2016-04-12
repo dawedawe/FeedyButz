@@ -17,16 +17,18 @@
         </Grid.RowDefinitions>
 
         <ProgressRing Grid.Row="0" Name="ReloadProgressRing"/>
-        <ListBox Grid.Row="1" Name="myListBox" ItemsSource="{x:Bind _feedItems}" Width="auto"
+        <ListBox Grid.Row="1"
+                 Name="myListBox"
+                 ItemsSource="{x:Bind _feedItems}"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ScrollViewer.VerticalScrollMode="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="data:FeedItem">
-                    <StackPanel Width="auto">
-                        <HyperlinkButton Width="auto" NavigateUri="{x:Bind Url}">
+                    <StackPanel>
+                        <HyperlinkButton NavigateUri="{x:Bind Url}">
                             <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" />
                         </HyperlinkButton>
-                        <WebView Height="100" Width="auto" local:MyExtensions.HTML="{x:Bind Description}" HorizontalAlignment="Stretch" />
+                        <WebView Height="100" local:MyExtensions.HTML="{x:Bind Description}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
