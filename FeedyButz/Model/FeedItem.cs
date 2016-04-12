@@ -77,7 +77,7 @@ namespace FeedyButz.Model
                 string title = atomSubNode != null ? atomSubNode.InnerText : "";
 
                 atomSubNode = atomNode.SelectSingleNodeNS("atom:link", atomNS);
-                string link = atomSubNode.Attributes.Where(a => a.NodeName == "href").First().InnerText;
+                string link = atomSubNode.Attributes.Where(a => a.NodeName == "href").FirstOrDefault()?.InnerText;
 
                 atomSubNode = atomNode.SelectSingleNodeNS("atom:summary", atomNS);
                 string summary = atomSubNode != null ? atomSubNode.InnerText : "";
