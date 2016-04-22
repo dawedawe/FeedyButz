@@ -11,6 +11,9 @@ namespace FeedyButz
 {
     class SettingsManager
     {
+        private const string FeedsListKey = "Feeds";
+        private const string FeedKeyPrefix= "feed";
+
         private static List<Feed> _defaultFeeds = new List<Feed>()
             {
                 new Feed("http://heise.de.feedsportal.com/c/35207/f/653902/index.rss"),
@@ -20,17 +23,17 @@ namespace FeedyButz
 
         public static void RestoreSettings()
         {
-            Application.Current.Resources["Feeds"] = SettingsManager.ReadFeedSettings();
+            Application.Current.Resources[FeedsListKey] = SettingsManager.ReadFeedSettings();
         }
 
         public static IList<Feed> GetCurrentFeeds()
         {
-            return (IList<Feed>)Application.Current.Resources["Feeds"];
+            return (IList<Feed>)Application.Current.Resources[FeedsListKey];
         }
 
         public static void SetCurrentFeeds(IList<Feed> feeds)
         {
-            Application.Current.Resources["Feeds"] = feeds;
+            Application.Current.Resources[FeedsListKey] = feeds;
         }
 
         public static void StoreFeedSettings(IList<Feed> feeds)
@@ -39,7 +42,7 @@ namespace FeedyButz
 
             localSettings.Values.Clear();
             for (int i = 0; i < feeds.Count(); i++)
-                localSettings.Values["feed" + i] = feeds[i].Url;
+                localSettings.Values[FeedKeyPrefix + i] = feeds[i].Url;
         }
 
         public static IList<Feed> ReadFeedSettings()
@@ -50,7 +53,7 @@ namespace FeedyButz
             int i = 0;
             while (true)
             {
-                var u = localSettings.Values["feed" + i];
+                var u = localSettings.Values[FeedKeyPrefix + i];
                 if (u == null)
                     break;
                 else
