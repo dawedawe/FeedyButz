@@ -26,7 +26,9 @@
                 <DataTemplate x:DataType="data:FeedItem">
                     <StackPanel>
                         <HyperlinkButton NavigateUri="{x:Bind Url}">
-                            <TextBlock Text="{x:Bind Title}" TextWrapping="WrapWholeWords" />
+                            <TextBlock Text="{x:Bind Title}"
+                                       TextWrapping="WrapWholeWords"
+                                       Width="{Binding ElementName=FeedsGrid, Path=ActualWidth}"/>
                         </HyperlinkButton>
                         <WebView Height="100" local:MyExtensions.HTML="{x:Bind Description}" />
                     </StackPanel>
