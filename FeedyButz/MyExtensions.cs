@@ -21,9 +21,6 @@ namespace FeedyButz
         }
 
         // Using a DependencyProperty as the backing store for HTML.  This enables animation, styling, binding, etc…
-        //public static readonly DependencyProperty HTMLProperty =
-        //    DependencyProperty.RegisterAttached("HTML", typeof(string), typeof(MyExtensions), new PropertyMetadata(0));
-
         public static readonly DependencyProperty HTMLProperty =
           DependencyProperty.RegisterAttached("HTML", typeof(string), typeof(MyExtensions), new PropertyMetadata("", new PropertyChangedCallback(OnHTMLChanged)));
 
